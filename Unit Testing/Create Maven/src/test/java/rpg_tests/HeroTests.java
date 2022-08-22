@@ -1,0 +1,31 @@
+package rpg_tests;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+
+import org.mockito.Mockito;
+import rpg_lab.Hero;
+import rpg_lab.Target;
+import rpg_lab.Weapon;
+
+public class HeroTests {
+
+    private final static int TARGET_XP = 10;
+    private final static String HER0_NAME = "John";
+
+    @Test
+    public void attackGainsExperienceIfTargetIsDead(){
+
+
+        Weapon weaponMock = Mockito.mock(Weapon.class);
+        Target targetMock = Mockito.mock(Target.class);
+
+        Mockito.when(targetMock.isDead()).thenReturn(true);
+        Mockito.when(targetMock.giveExperience()).thenReturn(TARGET_XP);
+        Hero hero =  new Hero(HER0_NAME,weaponMock);
+        hero.attack(targetMock);
+        Assert.assertEquals("Wrong experience",TARGET_XP, hero.getExperience());
+
+    }
+}
